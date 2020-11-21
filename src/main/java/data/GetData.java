@@ -8,6 +8,8 @@ import Entity.Nhom;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -21,8 +23,9 @@ import java.util.Map;
 public class GetData {
     public static void main(String[] args) throws InterruptedException {
         String url = "http://thongtindaotao.sgu.edu.vn";
-
-        WebDriver driver = new SafariDriver();
+        System.setProperty("webdriver.chrome.driver","C:\\Users\\Tuan Huy\\Desktop\\chromedriver.exe");
+     WebDriver driver = new ChromeDriver();
+       // WebDriver driver = new EdgeDriver();
         try {
 
 

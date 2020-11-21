@@ -1,10 +1,14 @@
 package DAO.impl;
 
 import DAO.GenericDAO;
+import Entity.MonHoc;
 import Utils.HibernateUtil;
 import constant.CoreContant;
 import org.hibernate.*;
 import org.hibernate.query.Query;
+import org.hibernate.transform.Transformers;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.StringType;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -89,6 +93,29 @@ public class AbstracDAO<ID extends Serializable,T> implements GenericDAO<ID, T> 
         } finally {
             session.close();
         }
+        return result;
+    }
+    public List<Object[]> queryNativeExecute(String query) {
+        List<Object[]> result =null;
+        Session session =null;
+        Transaction transaction=null;
+        try{
+            session = HibernateUtil.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            result = session.createNativeQuery(query).list();
+            transaction.commit();
+        }catch(Exception exception){
+            result=null;
+            if (transaction !=null && transaction.isActive()){
+                transaction.rollback();
+            }
+
+        }finally{
+            if (session !=null){
+                session.close();
+            }
+        }
+
         return result;
     }
 
